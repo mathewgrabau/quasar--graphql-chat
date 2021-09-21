@@ -25,6 +25,7 @@ module.exports = configure((ctx) => ({
   boot: [
     'i18n',
     'axios',
+    'amplify'
   ],
 
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -72,6 +73,26 @@ module.exports = configure((ctx) => ({
       chain.plugin('eslint-webpack-plugin')
         .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }]);
     },
+
+    extendWebpack(cfg) {
+      
+      cfg.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag-loader'
+      });
+
+      cfg.module.rules.push({
+        test: /\.mjs$/,
+        include:  /node_modules/,
+        type: 'javascript/auto'
+      });
+
+      cfg.resolve.alias = {
+        ...cfg.resolve.alias,
+        driver: path.resolve(__dirname, './src/driver')
+      };
+    }
   },
 
   // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
