@@ -52,7 +52,7 @@ type Message
 
 type ConversationLink 
 @model(
-    mutations: { create: "createConversationLink", update: "updateConversationLink: }
+    mutations: { create: "createConversationLink", update: "updateConversationLink" }
     queries: null
     subscriptions: null
 ) {
@@ -67,9 +67,9 @@ type ConversationLink
 
 type Subscription {
     onCreateConversationLink(conversationLinkUserId: ID!): ConversationLink
-    @aws_subscribe(mutations: ["createConversationLink])
+    @aws_subscribe(mutations: ["createConversationLink"])
     onCreateMessage(messageConversationId: ID!): Message
-    @aws_subscribe(mutations: ["createMessage])
+    @aws_subscribe(mutations: ["createMessage"])
     onCreateUser: User
     @aws_subscribe(mutations: ["createUser"])
     onDeleteUser: User
